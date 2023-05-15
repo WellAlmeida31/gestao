@@ -2,14 +2,18 @@ package com.project.gestao.infrastructure.database.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.project.gestao.application.enumerations.StatusProject;
@@ -23,7 +27,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@javax.persistence.Entity
+@Entity
 @Table(name = "project")
 public class ProjectEntity implements Serializable {
 
@@ -33,23 +37,27 @@ public class ProjectEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "nome")
+	@Column
 	private String nome;
 
-	@Column(name = "description")
+	@Column
 	private String description;
 	
 	@Column(name = "data_inicio")	
-	private LocalDateTime dataInicio;
+	private LocalDate dataInicio;
 	
-	@Column(name = "data_previsao_termino")
-	private LocalDateTime dataPrevisaoTermino;
+	@Column(name = "data_previsao_fim")
+	private LocalDate dataPrevisaoFim;
 	
-	@Column(name = "data_real_termino")
-	private LocalDateTime dataRealTermino;
+	@Column(name = "data_fim")
+	private LocalDate dataFim;
 	
-	@Column(name = "orcamento_total")
-	private BigDecimal orcamentoTotal;
+	@Column
+	private BigDecimal orcamento;
+	
+	@JoinColumn(name = "idgerente", referencedColumnName = "id")
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	private Pessoa idGerente;
 	
 	@Column(name = "status")
 	@Enumerated(EnumType.STRING)
