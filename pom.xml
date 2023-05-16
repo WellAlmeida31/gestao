@@ -95,12 +95,6 @@
             <artifactId>modelmapper</artifactId>
             <version>3.1.0</version>
 		</dependency>
-
-        <dependency>
-        	<groupId>br.coop.unimed</groupId>
-        	<artifactId>cmb-importer-pacotes</artifactId>
-        	<version>5.0.24</version>
-        </dependency>
 	</dependencies>
 
 	<build>
