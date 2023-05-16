@@ -3,6 +3,8 @@ package com.project.gestao.infrastructure.database.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +15,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -57,13 +61,17 @@ public class ProjectEntity implements Serializable {
 	
 	@JoinColumn(name = "idgerente", referencedColumnName = "id")
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	private Pessoa idGerente;
+	private PessoaEntity idGerente;
 	
 	@Column(name = "status")
 	@Enumerated(EnumType.STRING)
 	@Builder.Default
 	private StatusProject statusProject = StatusProject.EM_ANALISE;
 	
+	@ManyToMany
+	@JoinTable(name = "membros",
+			inverseJoinColumns = {@JoinColumn(name = "pessoa_id")},
+			joinColumns = {@JoinColumn(name = "project_id")})
+	private List<PessoaEntity> pessoas = new ArrayList<>();
 	
-
 }
