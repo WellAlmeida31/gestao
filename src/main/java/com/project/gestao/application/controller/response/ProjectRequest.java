@@ -24,5 +24,5 @@ public class ProjectRequest {
 	private Date dataInicio;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dataPrevisaoTermino;
-	private BigDecimal orcamentoTotal;
+	private BigDecimal orcamento;
 }

@@ -60,7 +60,7 @@ public class ProjectService {
 		projectEntity.setDescription(entity.getDescription());
 		projectEntity.setDataInicio(entity.getDataInicio());
 		projectEntity.setDataPrevisaoTermino(entity.getDataPrevisaoTermino());
-		projectEntity.setOrcamentoTotal(entity.getOrcamentoTotal());
+		projectEntity.setOrcamento(entity.getOrcamento());
 		projectEntity.setStatusProject(entity.getStatusProject());
 		repository.save(projectEntity);
 	}
