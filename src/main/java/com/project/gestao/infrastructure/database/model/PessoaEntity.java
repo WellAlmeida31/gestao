@@ -1,12 +1,16 @@
 package com.project.gestao.infrastructure.database.model;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -20,7 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "pessoa")
-public class Pessoa {
+public class PessoaEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -36,5 +40,11 @@ public class Pessoa {
 	
     @Column
 	private boolean funcionario;
+    
+    @ManyToMany
+	@JoinTable(name = "membros",
+			joinColumns = {@JoinColumn(name = "project_id")},
+			inverseJoinColumns = {@JoinColumn(name = "pessoa_id")})
+	private Set<ProjectEntity> projetos;
 
 }
