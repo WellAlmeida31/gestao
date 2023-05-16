@@ -20,6 +20,6 @@ public class ProjectRequest {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")	
 	private LocalDateTime dataInicio;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private LocalDateTime dataPrevisaoTermino;
-	private BigDecimal orcamentoTotal;
+	private LocalDateTime dataPrevisaoFim;
+	private BigDecimal orcamento;
 }

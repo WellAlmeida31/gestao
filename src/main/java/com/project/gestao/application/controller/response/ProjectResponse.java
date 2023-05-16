@@ -25,8 +25,8 @@ public class ProjectResponse {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime dataPrevisaoTermino;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private LocalDateTime dataRealTermino;
-	private BigDecimal orcamentoTotal;
+	private LocalDateTime dataFim;
+	private BigDecimal orcamento;
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String statusProject;
 }
