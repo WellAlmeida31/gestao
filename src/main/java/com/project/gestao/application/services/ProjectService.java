@@ -2,6 +2,7 @@ package com.project.gestao.application.services;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,8 @@ import com.project.gestao.infrastructure.database.model.ProjectEntity;
 import com.project.gestao.infrastructure.database.repository.ProjectRepository;
 
 import lombok.RequiredArgsConstructor;
+
+import javax.persistence.EntityNotFoundException;
 
 @RequiredArgsConstructor
 @Service
@@ -39,10 +42,27 @@ public class ProjectService {
 	public List<ProjectResponse> listProjectByStatus(String status) {
         return responseConverter.toListDto(repository.findAllByStatusProject(StatusProject.valueOf(status)));
 	}
+
+	@Transactional()
+	public ProjectEntity getProjectById(Integer id) {
+		return repository.findById(Long.valueOf(id)).orElseThrow(()-> new EntityNotFoundException("Invalid ID"));
+	}
 	
 	@Transactional
 	public void addProject(ProjectRequest projectRequest) {
         repository.save(requestConverter.toEntity(projectRequest));
+	}
+
+	@Transactional
+	public void updateProject(ProjectEntity entity, Integer id) {
+		ProjectEntity projectEntity = repository.getReferenceById(Long.valueOf(id));
+		projectEntity.setNome(entity.getNome());
+		projectEntity.setDescription(entity.getDescription());
+		projectEntity.setDataInicio(entity.getDataInicio());
+		projectEntity.setDataPrevisaoTermino(entity.getDataPrevisaoTermino());
+		projectEntity.setOrcamentoTotal(entity.getOrcamentoTotal());
+		projectEntity.setStatusProject(entity.getStatusProject());
+		repository.save(projectEntity);
 	}
 	
 	@Transactional

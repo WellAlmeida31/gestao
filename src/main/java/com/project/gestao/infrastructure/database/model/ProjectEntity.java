@@ -5,12 +5,13 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,18 +21,20 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.project.gestao.application.enumerations.StatusProject;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@javax.persistence.Entity
 @Table(name = "project")
 public class ProjectEntity implements Serializable {
 
@@ -41,20 +44,22 @@ public class ProjectEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column
+	@Column(name = "nome")
 	private String nome;
 
-	@Column
+	@Column(name = "description")
 	private String description;
 	
-	@Column(name = "data_inicio")	
-	private LocalDate dataInicio;
+	@Column(name = "data_inicio")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date dataInicio;
 	
-	@Column(name = "data_previsao_fim")
-	private LocalDate dataPrevisaoFim;
+	@Column(name = "data_previsao_termino")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date dataPrevisaoTermino;
 	
-	@Column(name = "data_fim")
-	private LocalDate dataFim;
+	@Column(name = "data_real_termino")
+	private LocalDateTime dataRealTermino;
 	
 	@Column
 	private BigDecimal orcamento;
